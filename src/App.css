@@ -1,0 +1,141 @@
+* {
+  margin: 0;
+  padding: 0;
+}
+
+body,
+html {
+  height: 100%;
+  margin: 0;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: #f0f0f0;
+}
+
+.App {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 10px;
+  width: 80%;
+  margin-left: auto;
+  margin-right: auto;
+  background-color: white;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+  font-family: "Exo 2", sans-serif;
+}
+
+.left,
+.right {
+  display: flex;
+  flex-direction: column;
+  align-items: start;
+}
+
+.heading {
+  font-size: 2rem;
+  margin-bottom: 20px;
+}
+
+.left > .img {
+  max-width: 250px;
+  width: 100%;
+}
+
+.nav {
+  margin-top: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+}
+
+.nav > input {
+  padding: 10px;
+  margin-right: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  flex: 1;
+}
+
+.btn {
+  padding: 10px 20px;
+  color: white;
+  border: none;
+  background-color: #ea7b2c;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+.card {
+  background-color: #112949;
+  color: white;
+  padding: 10px;
+  border-radius: 5px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+}
+
+.card > .topSection {
+  color: #34a9d5;
+  display: flex;
+  align-items: center;
+  gap: 15px;
+  margin-bottom: 10px;
+}
+
+.right {
+  display: grid;
+  gap: 10px;
+  width: 100%;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+}
+
+.card img {
+  width: 50px;
+  height: 50px;
+}
+
+.mobileNav {
+  display: none;
+}
+
+@media screen and (max-width: 720px) {
+  .App {
+    display: block;
+  }
+  .nav {
+    display: none;
+  }
+  .right {
+    margin-top: 20px;
+    grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  }
+  .mobileNav {
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+  }
+  .mobileNav > input {
+    padding: 10px;
+    margin-bottom: 10px;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    width: 90%;
+  }
+  .mobileNav > .btn {
+    padding: 10px 20px;
+    color: white;
+    border: none;
+    background-color: #ea7b2c;
+    border-radius: 5px;
+    cursor: pointer;
+  }
+}
