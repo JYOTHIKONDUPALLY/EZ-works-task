@@ -56,19 +56,21 @@ function App() {
         body: JSON.stringify({ email }),
       });
 
-      const result = await response.json();
-      if (response.status === 422 && email.endsWith("@ez.works")) {
-        setMessage("Emails ending with '@ez.works' are not allowed.");
-        setMessageType("error");
-      } else if (response.status === 200) {
+      if (!response.ok) {
+        const result = await response.json();
+        if (response.status === 422 && email.endsWith("@ez.works")) {
+          setMessage("Emails ending with '@ez.works' are not allowed.");
+          setMessageType("error");
+        } else {
+          setMessage(`Error: ${result.message || "Something went wrong."}`);
+          setMessageType("error");
+        }
+      } else {
         setMessage("Submitted!");
         setMessageType("success");
-      } else {
-        setMessage("Something went wrong. Please try again.");
-        setMessageType("error");
       }
     } catch (error) {
-      setMessage("Error: Unable to send.");
+      setMessage(`Error: ${error.message || "Unable to send."}`);
       setMessageType("error");
     }
   };
