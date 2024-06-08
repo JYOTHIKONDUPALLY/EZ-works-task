@@ -1,3 +1,4 @@
+import { useState, useEffect } from "react";
 import "./App.css";
 import logo from "./images/Screenshot 2024-06-08 153508.png";
 import design from "./images/Screenshot 2024-06-08 164003.png";
@@ -7,13 +8,10 @@ import GraphicDesign from "./images/Screenshot 2024-06-08 164022.png";
 import ResearchIcon from "./images/Screenshot 2024-06-08 164027.png";
 import DataProcessing from "./images/Screenshot 2024-06-08 164030.png";
 
-console.log(design);
-console.log(Audio);
-console.log(Translation);
-console.log(GraphicDesign);
-console.log(ResearchIcon);
-console.log(DataProcessing);
 function App() {
+  const [email, setEmail] = useState("");
+  const [message, setMessage] = useState("");
+  const [messageType, setMessageType] = useState("");
   const data = [
     {
       icon: design,
@@ -32,6 +30,49 @@ function App() {
     { icon: DataProcessing, name: "Data Processing" },
   ];
 
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+    setMessage("");
+    setMessageType("");
+
+    if (!email) {
+      setMessage("Email is required.");
+      setMessageType("error");
+      return;
+    }
+    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+    if (!emailRegex.test(email)) {
+      setMessage("Please enter a valid email address.");
+      setMessageType("error");
+      return;
+    }
+
+    try {
+      const response = await fetch("http://34.225.132.160:8002/api", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({ email }),
+      });
+
+      const result = await response.json();
+      if (response.status === 422 && email.endsWith("@ez.works")) {
+        setMessage("Emails ending with '@ez.works' are not allowed.");
+        setMessageType("error");
+      } else if (response.status === 200) {
+        setMessage("Submitted!");
+        setMessageType("success");
+      } else {
+        setMessage("Something went wrong. Please try again.");
+        setMessageType("error");
+      }
+    } catch (error) {
+      setMessage("Error: Unable to send.");
+      setMessageType("error");
+    }
+  };
+
   return (
     <div className="App">
       <div className="left">
@@ -44,9 +85,18 @@ function App() {
           scrambled it to make a type specimen book.
         </p>
         <div className="nav">
-          <input type="text" placeholder="Email Address" />
-          <button className="btn">Contact Me</button>
+          <input
+            type="email"
+            placeholder="Email Address"
+            id="email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+          />
+          <button className="btn" type="onSubmit" onClick={handleSubmit}>
+            Contact Me
+          </button>
         </div>
+        {message && <p className={`message ${messageType}`}>{message}</p>}
       </div>
       <div className="right">
         {data.map((each, index) => (
@@ -63,8 +113,17 @@ function App() {
         ))}
       </div>
       <div className="mobileNav">
-        <input type="text" placeholder="Email Address" />
-        <button className="btn">Contact Me</button>
+        <input
+          type="email"
+          placeholder="Email Address"
+          id="email"
+          value={email}
+          onChange={(e) => setEmail(e.target.value)}
+        />
+        <button className="btn" type="onSubmit" onClick={handleSubmit}>
+          Contact Me
+        </button>
+        {message && <p className={`message ${messageType}`}>{message}</p>}
       </div>
     </div>
   );

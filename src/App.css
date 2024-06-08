@@ -103,6 +103,18 @@ html {
 .mobileNav {
   display: none;
 }
+.message {
+  margin: 10px 0;
+  font-weight: 600;
+}
+
+.message.success {
+  color: green;
+}
+
+.message.error {
+  color: red;
+}
 
 @media screen and (max-width: 720px) {
   .App {
