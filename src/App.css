@@ -3,7 +3,7 @@
   padding: 0;
 }
 
-body,
+/* body,
 html {
   height: 100%;
   margin: 0;
@@ -11,7 +11,7 @@ html {
   justify-content: center;
   align-items: center;
   background-color: #f0f0f0;
-}
+} */
 
 .App {
   display: grid;
@@ -21,10 +21,10 @@ html {
   margin-left: auto;
   margin-right: auto;
   background-color: white;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
   border-radius: 8px;
   padding: 20px;
   font-family: "Exo 2", sans-serif;
+  margin-top: 30px;
 }
 
 .left,
